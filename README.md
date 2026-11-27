@@ -8,7 +8,9 @@ A model house with three logic circuits built from basic 74LS chips: a password 
   <img src="media/model_house.jpg" width="85%" alt="The model house with the breadboarded logic circuits beside it: gate, garden path with lamp posts, garage, parking LEDs on the roof and the blue DIP switch on the right wall">
 </p>
 
-**Demo video:** [media/demo.mp4](media/demo.mp4) (48 s). It shows power on, then a wrong code (red) and the correct code (green) at the gate. Then the parking spots switch between red and green, and the runway lamps light one pair after another.
+**Demo video:** It shows power on, then a wrong code (red) and the correct code (green) at the gate. Then the parking spots switch between red and green, and the runway lamps light one pair after another.
+
+https://github.com/user-attachments/assets/cec40456-5db6-4889-8408-2122f4db4953
 
 ## The three circuits
 
