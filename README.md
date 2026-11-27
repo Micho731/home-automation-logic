@@ -8,11 +8,7 @@ A model house with three logic circuits built from basic 74LS chips: a password 
   <img src="media/model_house.jpg" width="85%" alt="The model house with the breadboarded logic circuits beside it: gate, garden path with lamp posts, garage, parking LEDs on the roof and the blue DIP switch on the right wall">
 </p>
 
-**Demo video:** It shows power on, then a wrong code (red) and the correct code (green) at the gate. Then the parking spots switch between red and green, and the runway lamps light one pair after another.
-
-
-https://github.com/user-attachments/assets/cec40456-5db6-4889-8408-2122f4db4953
-
+**Demo video:** [media/demo.mp4](media/demo.mp4) (48 s). It shows power on, then a wrong code (red) and the correct code (green) at the gate. Then the parking spots switch between red and green, and the runway lamps light one pair after another.
 
 ## The three circuits
 
@@ -57,6 +53,10 @@ Next-state equations, from the state table with K-maps:
 - D1 = Q0 · Q̄2
 - D2 = Q1 · Q̄2
 
+<p align="center"><img src="media/kmaps_runway.png" width="100%" alt="K-maps of D0, D1 and D2 against Q2, A, Q1, Q0, each with one group of four cells"></p>
+
+Each output is a single group of four cells, so each flip-flop input needs only one 2-input AND gate.
+
 The four unused states (010, 100, 101, 110) return to the sequence within 3 ticks, so the lights always recover after power-up. With the gate closed (A = 0) the lights switch off one pair per tick.
 
 <p align="center"><img src="media/sch_runway.png" width="85%" alt="Runway lights schematic: three D flip-flops with AND gates and a common clock"></p>
@@ -74,7 +74,9 @@ Each spot has a switch that closes when a car is parked (pressure plates were th
 - Red = S (taken)
 - Green = S̄ (free): one inverter per spot
 
-The K-maps reduce to a single variable per output, so the whole part needs only one 74LS04.
+The K-maps reduce to a single variable per output, so the whole part needs only one 74LS04. Spot 1 is shown; spots 2 and 3 are the same with S2 and S3.
+
+<p align="center"><img src="media/kmaps_parking.png" width="70%" alt="K-maps of the spot-1 red and green outputs: R1 = S1, G1 = not S1"></p>
 
 <p align="center"><img src="media/sch_parking.png" width="55%" alt="Parking spot schematic: switch with pull-down, red LED direct, green LED through an inverter"></p>
 
@@ -84,10 +86,11 @@ The K-maps reduce to a single variable per output, so the whole part needs only 
 logic/
   home.py          logic model of the three circuits and the 555 timing
   draw.py          draws the schematics and the timing diagram
+  kmaps.py         draws the K-maps, computed from the logic model
 tests/test_home.py checks every input combination (256 for the lock) and the light sequence
 original/          the CircuitMaker 2000 simulation files of the course project
   gate_password.CKT, runway_lights.CKT, parking_spots.CKT, clock_555.CKT
-media/             photo, schematics, timing diagram
+media/             photo, demo video, schematics, K-maps, timing diagram
 ```
 
 ## Run it
@@ -98,6 +101,7 @@ Python 3.10+:
 pip install pytest matplotlib schemdraw
 pytest -q                  # 7 tests
 python logic/draw.py       # redraws media/ (needs Playwright for the PNG export)
+python logic/kmaps.py      # redraws the K-maps
 ```
 
 The `.CKT` files open in CircuitMaker 2000.
